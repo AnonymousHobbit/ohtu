@@ -43,8 +43,19 @@ class TestStatistics(unittest.TestCase):
         self.assertEqual(len(players), 0)
 
     def test_top(self):
-        # etsitään joukkue, joka löytyy
         players = self.statistics.top(3)
         self.assertEqual(len(players), 3)
+        self.assertEqual(players[0].name, "Gretzky")
+        
+        players = self.statistics.top(3, 2)
+        self.assertEqual(len(players), 3)
+        self.assertEqual(players[0].name, "Lemieux")
+
+        players = self.statistics.top(3, 3)
+        self.assertEqual(len(players), 3)
+        self.assertEqual(players[0].name, "Gretzky")
+
+
+
 
     

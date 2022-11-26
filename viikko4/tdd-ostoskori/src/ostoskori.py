@@ -14,10 +14,6 @@ class Ostoskori:
         return sum([ostos.hinta() for ostos in self.kori])
 
     def lisaa_tuote(self, lisattava: Tuote):
-        # lisää tuotteen ostoskoriin
-        # jos tuote on jo korissa, lisää tuotteen määrää yhdellä
-        
-        # if the item is already in the cart, increase the quantity by 1
         if lisattava in [ostos.tuote for ostos in self.kori]:
             for ostos in self.kori:
                 if ostos.tuote == lisattava:

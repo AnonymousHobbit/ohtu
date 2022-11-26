@@ -17,7 +17,13 @@ class Ostoskori:
         # lisää tuotteen ostoskoriin
         # jos tuote on jo korissa, lisää tuotteen määrää yhdellä
         
-        self.kori.append(Ostos(lisattava))
+        # if the item is already in the cart, increase the quantity by 1
+        if lisattava in [ostos.tuote for ostos in self.kori]:
+            for ostos in self.kori:
+                if ostos.tuote == lisattava:
+                    ostos.muuta_lukumaaraa(1)
+        else:
+            self.kori.append(Ostos(lisattava))
         
 
     def poista_tuote(self, poistettava: Tuote):

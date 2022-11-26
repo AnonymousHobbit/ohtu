@@ -6,6 +6,7 @@ class Ostoskori:
         self.kori = []
 
     def tavaroita_korissa(self):
+        print(self.kori)
         return len(self.kori)
 
     def hinta(self):
@@ -13,8 +14,11 @@ class Ostoskori:
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
 
     def lisaa_tuote(self, lisattava: Tuote):
-        # lisää tuotteen
-        pass
+        # lisää tuotteen ostoskoriin
+        # jos tuote on jo korissa, lisää tuotteen määrää yhdellä
+        
+        self.kori.append(Ostos(lisattava))
+        
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen

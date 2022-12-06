@@ -8,11 +8,47 @@ class Komento(Enum):
     NOLLAUS = 3
     KUMOA = 4
 
+class Summa():
+    def __init__(self, sovellus):
+        self._sovellus = sovellus
+
+    def suorita(self, syote):
+        self._sovellus.plus(syote)
+
+class Erotus():
+    def __init__(self, sovellus):
+        self._sovellus = sovellus
+
+    def suorita(self, syote):
+        self._sovellus.miinus(syote)
+
+
+class Nollaus():
+    def __init__(self, sovellus):
+        self._sovellus = sovellus
+
+    def suorita(self, syote):
+        self._sovellus.nollaa()
+
+
+class Kumoa():
+    def __init__(self, sovellus):
+        self._sovellus = sovellus
+
+    def suorita(self, syote):
+        self._sovellus.kumoa()
+
 
 class Kayttoliittyma:
     def __init__(self, sovellus, root):
         self._sovellus = sovellus
         self._root = root
+        self.komennot = {
+            Komento.SUMMA: Summa(self._sovellus),
+            Komento.EROTUS: Erotus(self._sovellus),
+            Komento.NOLLAUS: Nollaus(self._sovellus),
+            Komento.KUMOA: Kumoa(self._sovellus)
+        }
 
     def kaynnista(self):
         self._tulos_var = StringVar()
@@ -54,22 +90,15 @@ class Kayttoliittyma:
         self._nollaus_painike.grid(row=2, column=2)
         self._kumoa_painike.grid(row=2, column=3)
 
+
     def _suorita_komento(self, komento):
-        arvo = 0
-
         try:
-            arvo = int(self._syote_kentta.get())
+            syote = int(self._syote_kentta.get())
         except Exception:
-            pass
-
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
-            pass
+            syote = None
+            
+        komento_olio = self.komennot[komento]
+        komento_olio.suorita(syote)
 
         self._kumoa_painike["state"] = constants.NORMAL
 
@@ -80,3 +109,4 @@ class Kayttoliittyma:
 
         self._syote_kentta.delete(0, constants.END)
         self._tulos_var.set(self._sovellus.tulos)
+
